@@ -1,4 +1,4 @@
-/* Copyright 2020 Yatara
+/* Copyright 2021 Kyle Xiao
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,24 +13,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x5961 // "Ya" - Yatara
-#define PRODUCT_ID      0x1470
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Yatara
-#define PRODUCT         Drink Me
-
-/* Key matrix size */
-#define MATRIX_ROWS 1
-#define MATRIX_COLS 4
-
-/* Pinout */
-#define DIRECT_PINS { \
-    {B4, B5, B6, B7} \
-}
-#define UNUSED_PINS
+#define TAPPING_TERM 200
