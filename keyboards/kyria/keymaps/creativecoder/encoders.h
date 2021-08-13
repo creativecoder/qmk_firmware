@@ -30,9 +30,9 @@ bool encoder_update_user(uint8_t index, bool ccw) {
             case FUN:
                 // Brightness up/down
                 if (ccw) {
-                    tap_code(KC_SLCK);
+                    tap_code(KC_BRID);
                 } else {
-                    tap_code(KC_PAUS);
+                    tap_code(KC_BRIU);
                 }
                 break;
             default:
@@ -73,9 +73,9 @@ bool encoder_update_user(uint8_t index, bool ccw) {
             case MOUSE:
                 // Mouse scroll up/down
                 if (ccw) {
-                    tap_code(KC_WH_U);
-                } else {
                     tap_code(KC_WH_D);
+                } else {
+                    tap_code(KC_WH_U);
                 }
                 break;
             default:
