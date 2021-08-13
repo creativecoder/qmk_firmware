@@ -52,7 +52,6 @@ XXX, K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K30, K31, K32, K33, XXX, 
 enum custom_keycodes {
     RELEASE_LGUI = SAFE_RANGE,
     CPY_URL,
-    OPN_URL,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -106,36 +105,33 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
-// const key_override_t copy_url_key_override = ko_make_basic(MOD_MASK_SHIFT, CPY_URL, OPN_URL);
-
-// // This globally defines all key overrides to be used
-// const key_override_t **key_overrides = (const key_override_t *[]){
-// 	&copy_url_key_override,
-// 	NULL // Null terminate the array of overrides!
-// };
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-    case RELEASE_LGUI:
-        if (record->event.pressed && is_app_switcher_active) {
-            unregister_code(KC_LGUI);
-            is_app_switcher_active = false;
-        }
-        break;
-    case CPY_URL:
-        if (record->event.pressed) {
-            tap_code16(LCMD(KC_L));
-            tap_code16(U_CPY);
-        }
-        break;
-    case OPN_URL:
-        if (record->event.pressed) {
-            tap_code16(LCMD(KC_L));
-            tap_code16(U_CPY);
-            tap_code16(LCMD(KC_T));
-            tap_code16(U_PST);
-        }
-        break;
+        case RELEASE_LGUI:
+            if (record->event.pressed && is_app_switcher_active) {
+                unregister_code(KC_LGUI);
+                is_app_switcher_active = false;
+            }
+            break;
+        case CPY_URL:
+            if (record->event.pressed) {
+                if (get_mods() & MOD_MASK_SHIFT) {
+                    unregister_code(KC_LSFT);
+                    register_code(KC_LGUI);
+                    tap_code(KC_L);
+                    tap_code(KC_C);
+                    tap_code(KC_T);
+                    tap_code(KC_V);
+                    unregister_code(KC_LGUI);
+                    tap_code(KC_ENT);
+                } else {
+                    register_code(KC_LGUI);
+                    tap_code(KC_L);
+                    tap_code(KC_C);
+                    unregister_code(KC_LGUI);
+                }
+            }
+            break;
     }
     return true;
 };
