@@ -39,6 +39,7 @@ uint16_t app_switcher_timer = 0;
 enum custom_keycodes {
     RELEASE_LGUI = SAFE_RANGE,
     CPY_URL,
+    CPY_GO,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -51,13 +52,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [NAV] = LAYOUT_kyria_3x5(
       RESET,   U_NA,    U_NA,    U_NA,    U_NA,                                        U_RDO,   U_PST,   U_CPY,   U_CUT,   U_UND,
       KC_LCTL, KC_LALT, KC_LGUI, KC_LSFT, U_NA,                                        KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_CAPS,
-      U_NA,    KC_ALGR, U_NA,    U_NA,    U_NA,    U_NA,    U_NA,    U_NA,    U_NA,    KC_HOME, KC_PGDN, KC_PGUP, KC_END,  CPY_URL,
+      U_NA,    KC_ALGR, U_NA,    U_NA,    U_NA,    U_NA,    U_NA,    U_NA,    U_NA,    KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_INS,
                         U_NU,    U_NA,    U_NA,    U_NA,    U_NA,    U_NU,    KC_ENT,  KC_BSPC, KC_DEL,  U_NU
     ),
     [MOUSE] = LAYOUT_kyria_3x5(
       RESET,   U_NA,    U_NA,    U_NA,    U_NA,                                        U_RDO,   U_PST,   U_CPY,   U_CUT,   U_UND,
-      KC_LCTL, KC_LALT, KC_LGUI, KC_LSFT, U_NA,                                        KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, U_NU,
-      U_NA,    KC_ALGR, U_NA,    U_NA,    U_NA,    U_NA,    U_NA,    U_NA,    U_NA,    KC_WH_L, KC_WH_U, KC_WH_D, KC_WH_R, U_NU,
+      KC_LCTL, KC_LALT, KC_LGUI, KC_LSFT, U_NA,                                        KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, CPY_URL,
+      U_NA,    KC_ALGR, U_NA,    U_NA,    U_NA,    U_NA,    U_NA,    U_NA,    U_NA,    KC_WH_L, KC_WH_U, KC_WH_D, KC_WH_R, CPY_GO,
                         U_NU,    U_NA,    U_NA,    U_NA,    U_NA,    U_NA,    KC_BTN1, KC_BTN3, KC_BTN2, U_NU
     ),
     [MEDIA] = LAYOUT_kyria_3x5(
@@ -138,6 +139,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     tap_code(KC_C);
                     unregister_code(KC_LGUI);
                 }
+            }
+            return false;
+        case CPY_GO:
+            if (record->event.pressed) {
+                register_code(KC_LGUI);
+                tap_code(KC_C);
+                tap_code(KC_T);
+                tap_code(KC_V);
+                unregister_code(KC_LGUI);
+                tap_code(KC_ENT);
             }
             return false;
     }
