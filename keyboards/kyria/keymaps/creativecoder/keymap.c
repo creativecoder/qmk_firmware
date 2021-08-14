@@ -40,6 +40,7 @@ enum custom_keycodes {
     RELEASE_LGUI = SAFE_RANGE,
     CPY_URL,
     CPY_GO,
+    VIM_WQ,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -63,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [MEDIA] = LAYOUT_kyria_3x5(
       RESET,   U_NA,    U_NA,    U_NA,    U_NA,                                        RGB_TOG, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI,
-      KC_LCTL, KC_LALT, KC_LGUI, KC_LSFT, U_NA,                                        KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT, U_NU,
+      KC_LCTL, KC_LALT, KC_LGUI, KC_LSFT, U_NA,                                        KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT, VIM_WQ,
       U_NA,    KC_ALGR, U_NA,    U_NA,    U_NA,    U_NA,    U_NA,    U_NU,    U_NU,    U_NU,    U_NU,    U_NU,    U_NU,    U_NU,
                         U_NU,    U_NA,    U_NA,    U_NA,    U_NA,    U_NA,    KC_MSTP, KC_MPLY, KC_MUTE, KC_MUTE
     ),
@@ -122,8 +123,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case CPY_URL:
             if (record->event.pressed) {
                 if (get_mods() & MOD_MASK_SHIFT) {
-                    // Temporarily cancel both shifts
-                    del_mods(MOD_MASK_SHIFT);
+                    // Temporarily cancel existing modifiers, including both shifts
+                    del_mods(mod_state);
                     register_code(KC_LGUI);
                     tap_code(KC_L);
                     tap_code(KC_C);
@@ -134,21 +135,36 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     // Reapplying modifier state so that the held shift key(s) still work
                     set_mods(mod_state);
                 } else {
+                    del_mods(mod_state);
                     register_code(KC_LGUI);
                     tap_code(KC_L);
                     tap_code(KC_C);
                     unregister_code(KC_LGUI);
+                    set_mods(mod_state);
                 }
             }
             return false;
         case CPY_GO:
             if (record->event.pressed) {
+                del_mods(mod_state);
                 register_code(KC_LGUI);
                 tap_code(KC_C);
                 tap_code(KC_T);
                 tap_code(KC_V);
                 unregister_code(KC_LGUI);
                 tap_code(KC_ENT);
+                set_mods(mod_state);
+            }
+            return false;
+        case VIM_WQ:
+            if (record->event.pressed) {
+                del_mods(mod_state);
+                tap_code(KC_ESC);
+                tap_code16(KC_COLN);
+                tap_code(KC_W);
+                tap_code(KC_Q);
+                tap_code(KC_ENT);
+                set_mods(mod_state);
             }
             return false;
     }
