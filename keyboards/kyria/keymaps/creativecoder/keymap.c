@@ -46,9 +46,9 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [BASE] = LAYOUT_kyria_3x5(
-      KC_Q,              KC_W,              KC_F,              KC_P,              KC_B,                                                                                          KC_J,              KC_L,              KC_U,              KC_Y,              KC_QUOT,
+      TD(Q_CTRL),        KC_W,              KC_F,              KC_P,              KC_B,                                                                                          KC_J,              KC_L,              KC_U,              KC_Y,              KC_QUOT,
       LCTL_T(KC_A),      LALT_T(KC_R),      LGUI_T(KC_S),      LSFT_T(KC_T),      KC_G,                                                                                          KC_M,              LSFT_T(KC_N),      LGUI_T(KC_E),      LALT_T(KC_I),      LCTL_T(KC_O),
-      TD(Z_CTRL),        ALGR_T(KC_X),      KC_C,              KC_D,              KC_V,              LT(NUM, KC_LBRC),  U_NU,              U_NU,              LT(NAV, KC_RBRC),  KC_K,              KC_H,              KC_COMM,           ALGR_T(KC_DOT),    KC_SLSH,
+      KC_Z,        ALGR_T(KC_X),      KC_C,              KC_D,              KC_V,              LT(NUM, KC_LBRC),  U_NU,              U_NU,              LT(NAV, KC_RBRC),  KC_K,              KC_H,              KC_COMM,           ALGR_T(KC_DOT),    KC_SLSH,
                                             RELEASE_LGUI,      LT(MEDIA, KC_ESC), LT(NAV, KC_SPC),   LT(MOUSE, KC_TAB), U_NU,              U_NU,              LT(SYM, KC_ENT),   LT(NUM, KC_BSPC),  LT(FUN, KC_DEL),   U_NU
     ),
     [NAV] = LAYOUT_kyria_3x5(
