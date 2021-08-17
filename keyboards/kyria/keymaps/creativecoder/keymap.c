@@ -89,15 +89,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // ),
     [NUM] = LAYOUT_kyria_3x5(
       KC_BSLS, KC_7,    KC_8,    KC_9,    KC_SLSH,                                     U_NA,    U_NA,    U_NA,    U_NA,    RESET,
-      KC_SCLN, KC_4,    KC_5,    KC_6,    KC_EQL,                                      U_NA,    KC_LSFT, KC_LGUI, KC_LALT, KC_LCTL,
-      KC_DOT,  KC_1,    KC_2,    KC_3,    KC_ASTR, U_NU,    U_NU,    U_NA,    U_NA,    U_NA,    U_NA,    U_NA,    KC_ALGR, U_NA,
-                        U_NU,    KC_GRV,  KC_0,    KC_MINS, U_NU,    U_NA,    U_NA,    U_NA,    U_NA,    U_NU
+      KC_EQL,  KC_4,    KC_5,    KC_6,    KC_ASTR,                                     U_NA,    KC_LSFT, KC_LGUI, KC_LALT, KC_LCTL,
+      KC_PERC, KC_1,    KC_2,    KC_3,    KC_PLUS, U_NU,    U_NU,    U_NA,    U_NA,    U_NA,    U_NA,    U_NA,    KC_ALGR, U_NA,
+                        U_NU,    KC_DOT,  KC_0,    KC_MINS, U_NU,    U_NA,    U_NA,    U_NA,    U_NA,    U_NU
     ),
     [SYM] = LAYOUT_kyria_3x5(
-      KC_PIPE, KC_AMPR, KC_LCBR, KC_RCBR, KC_PERC,                                     U_NA,    U_NA,    U_NA,    U_NA,    RESET,
-      KC_COLN, KC_HASH, KC_LPRN, KC_RPRN, KC_PLUS,                                     U_NA,    KC_LSFT, KC_LGUI, KC_LALT, KC_LCTL,
+      KC_PIPE, KC_AMPR, KC_LCBR, KC_RCBR, KC_TILD,                                     U_NA,    U_NA,    U_NA,    U_NA,    RESET,
+      KC_SCLN, KC_COLN, KC_LPRN, KC_RPRN, KC_HASH,                                     U_NA,    KC_LSFT, KC_LGUI, KC_LALT, KC_LCTL,
       KC_CIRC, KC_DLR,  KC_LBRC, KC_RBRC, KC_AT,   U_NU,    U_NU,    U_NA,    U_NA,    U_NA,    U_NA,    U_NA,    KC_ALGR, U_NA,
-                        U_NU,    KC_TILD, KC_EXLM, KC_UNDS, U_NU,    U_NA,    U_NA,    U_NA,    U_NA,    U_NU
+                        U_NU,    KC_GRV,  KC_EXLM, KC_UNDS, U_NU,    U_NA,    U_NA,    U_NA,    U_NA,    U_NU
     ),
     [FUN] = LAYOUT_kyria_3x5(
       KC_F12,  KC_F7,   KC_F8,   KC_F9,   KC_PAUS,                                     U_NA,    U_NA,    U_NA,    U_NA,    RESET,
