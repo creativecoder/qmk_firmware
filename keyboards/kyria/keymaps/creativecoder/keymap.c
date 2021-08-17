@@ -23,6 +23,7 @@ enum layers { BASE, MBO, MEDIA, NAV, MOUSE, SYM, NUM, FUN };
 bool is_app_switcher_active = false;
 uint16_t app_switcher_timer = 0;
 
+#include "combos.h"
 #include "encoders.h"
 #include "layout.h"
 #include "tapdance.h"
