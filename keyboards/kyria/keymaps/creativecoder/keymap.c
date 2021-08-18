@@ -38,6 +38,11 @@ uint16_t app_switcher_timer = 0;
 #define U_CUT LCMD(KC_X)
 #define U_UND LCMD(KC_Z)
 
+#define U_PTAB LSG(KC_LBRC)
+#define U_NTAB LSG(KC_RBRC)
+#define U_PTTB LSA(KC_LBRC)
+#define U_NTTB LSA(KC_RBRC)
+
 enum custom_keycodes {
     RELEASE_LGUI = SAFE_RANGE,
     CPY_URL,
@@ -89,7 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //                     U_NU,    KC_LPRN, KC_RPRN, KC_UNDS, U_NU,    U_NA,    U_NA,    U_NA,    U_NA,    U_NU
     // ),
     [NUM] = LAYOUT_kyria_3x5(
-      KC_PERC, KC_7,    KC_8,    KC_9,    KC_SLSH,                                     U_NA,    U_NA,    U_NA,    U_NA,    RESET,
+      KC_PERC, KC_7,    KC_8,    KC_9,    KC_SLSH,                                     U_PTTB,  U_PTAB,  U_NTAB,  U_NTTB,  RESET,
       KC_EQL,  KC_4,    KC_5,    KC_6,    KC_ASTR,                                     U_NA,    KC_LSFT, KC_LGUI, KC_LALT, KC_LCTL,
       KC_DOT,  KC_1,    KC_2,    KC_3,    KC_PLUS, U_NU,    U_NU,    U_NA,    U_NA,    U_NA,    U_NA,    U_NA,    KC_ALGR, U_NA,
                         U_NU,    KC_GRV,  KC_0,    KC_MINS, U_NU,    U_NA,    U_NA,    U_NA,    U_NA,    U_NU

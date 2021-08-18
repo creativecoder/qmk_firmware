@@ -68,4 +68,4 @@
 #define MOUSEKEY_TIME_TO_MAX    64
 
 #define COMBO_COUNT 2
-#define COMBO_TERM 25
+#define COMBO_TERM 20
