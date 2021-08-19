@@ -18,7 +18,7 @@
  */
 #include QMK_KEYBOARD_H
 
-enum layers { BASE, MBO, MEDIA, NAV, MOUSE, SYM, NUM, FUN };
+enum layers { BASE, MBO, MEDIA, NAV, MOUSE, SCUTS, SYM, NUM, FUN };
 
 bool is_app_switcher_active = false;
 uint16_t app_switcher_timer = 0;
@@ -37,11 +37,16 @@ uint16_t app_switcher_timer = 0;
 #define U_CPY LCMD(KC_C)
 #define U_CUT LCMD(KC_X)
 #define U_UND LCMD(KC_Z)
+#define SCRNSHT LSG(KC_4)
+#define SCRNREC LSG(KC_5)
+#define CLIPBRD LAG(KC_BSLS)
+#define SNIPS LCAG(KC_SPC)
 
 enum custom_keycodes {
     RELEASE_LGUI = SAFE_RANGE,
     CPY_URL,
     CPY_GO,
+    QT_RPLY,
     VIM_WQ,
 };
 
@@ -49,13 +54,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [BASE] = LAYOUT_kyria_3x5(
       TD(Q_CTRL),        KC_W,              KC_F,              KC_P,              KC_B,                                                                                          KC_J,              KC_L,              KC_U,              KC_Y,              KC_QUOT,
       LCTL_T(KC_A),      LALT_T(KC_R),      LGUI_T(KC_S),      LSFT_T(KC_T),      KC_G,                                                                                          KC_M,              RSFT_T(KC_N),      RGUI_T(KC_E),      RALT_T(KC_I),      RCTL_T(KC_O),
-      KC_Z,              ALGR_T(KC_X),      KC_C,              KC_D,              KC_V,              LT(NUM, KC_LBRC),  U_NU,              U_NU,              LT(NAV, KC_RBRC),  KC_K,              KC_H,              KC_COMM,           ALGR_T(KC_DOT),    KC_SLSH,
-                                            RELEASE_LGUI,      LT(MEDIA, KC_ESC), LT(NAV, KC_SPC),   LT(MOUSE, KC_TAB), U_NU,              U_NU,              LT(SYM, KC_ENT),   LT(NUM, KC_BSPC),  LT(FUN, KC_DEL),   U_NU
+      KC_Z,              ALGR_T(KC_X),      KC_C,              KC_D,              KC_V,              LT(NUM, U_NU),     U_NU,              LT(SCUTS, U_NU),   LT(NAV, U_NU),     KC_K,              KC_H,              KC_COMM,           ALGR_T(KC_DOT),    KC_SLSH,
+                                            RELEASE_LGUI,      LT(MEDIA, KC_ESC), LT(NAV, KC_SPC),   LT(SCUTS, KC_TAB), LT(MOUSE, U_NU),   U_NU,              LT(SYM, KC_ENT),   LT(NUM, KC_BSPC),  LT(FUN, KC_DEL),   U_NU
     ),
     [NAV] = LAYOUT_kyria_3x5(
       RESET,   U_NA,    U_NA,    U_NA,    U_NA,                                        U_RDO,   U_PST,   U_CPY,   U_CUT,   U_UND,
-      KC_LCTL, KC_LALT, KC_LGUI, KC_LSFT, U_NA,                                        KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, CPY_URL,
-      U_NA,    KC_ALGR, U_NA,    U_NA,    U_NA,    U_NA,    U_NA,    U_NU,    U_NU,    KC_HOME, KC_PGDN, KC_PGUP, KC_END,  CPY_GO,
+      KC_LCTL, KC_LALT, KC_LGUI, KC_LSFT, U_NA,                                        KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_CAPS,
+      U_NA,    KC_ALGR, U_NA,    U_NA,    U_NA,    U_NA,    U_NA,    U_NU,    U_NU,    KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_INS,
+                        U_NU,    U_NA,    U_NA,    U_NA,    U_NA,    U_NU,    KC_ENT,  KC_BSPC, KC_DEL,  U_NU
+    ),
+    [SCUTS] = LAYOUT_kyria_3x5(
+      RESET,   U_NA,    U_NA,    U_NA,    U_NA,                                        U_RDO,   U_PST,   U_CPY,   U_CUT,   U_UND,
+      KC_LCTL, KC_LALT, KC_LGUI, KC_LSFT, U_NA,                                        U_NU,    CPY_URL, CPY_GO,  QT_RPLY, VIM_WQ,
+      U_NA,    KC_ALGR, U_NA,    U_NA,    U_NA,    U_NA,    U_NA,    U_NU,    U_NU,    U_NU,    SCRNSHT, SCRNREC, CLIPBRD, SNIPS,
                         U_NU,    U_NA,    U_NA,    U_NA,    U_NA,    U_NU,    KC_ENT,  KC_BSPC, KC_DEL,  U_NU
     ),
     [MOUSE] = LAYOUT_kyria_3x5(
@@ -101,8 +112,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                         U_NU,    KC_HASH, KC_EXLM, KC_UNDS, U_NU,    U_NA,    U_NA,    U_NA,    U_NA,    U_NU
     ),
     [FUN] = LAYOUT_kyria_3x5(
-      KC_F12,  KC_F7,   KC_F8,   KC_F9,   KC_PAUS,                                     U_NA,    U_NA,    U_NA,    U_NA,    RESET,
-      KC_F11,  KC_F4,   KC_F5,   KC_F6,   KC_CAPS,                                     U_NA,    KC_LSFT, KC_LGUI, KC_LALT, KC_LCTL,
+      KC_F12,  KC_F7,   KC_F8,   KC_F9,   KC_PSCR,                                     U_NA,    U_NA,    U_NA,    U_NA,    RESET,
+      KC_F11,  KC_F4,   KC_F5,   KC_F6,   KC_PAUS,                                     U_NA,    KC_LSFT, KC_LGUI, KC_LALT, KC_LCTL,
       KC_F10,  KC_F1,   KC_F2,   KC_F3,   KC_SLCK, U_NU,    U_NU,    U_NA,    U_NA,    U_NA,    U_NA,    U_NA,    KC_ALGR, U_NA,
                         U_NU,    KC_APP,  KC_SPC,  KC_TAB,  U_NU,    U_NA,    U_NA,    U_NA,    U_NA,    U_NU
     ),
@@ -142,19 +153,39 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     tap_code(KC_L);
                     tap_code(KC_C);
                     unregister_code(KC_LGUI);
+                    tap_code(KC_ESC);
                     set_mods(mod_state);
                 }
             }
             return false;
         case CPY_GO:
             if (record->event.pressed) {
+                if (get_mods() & MOD_MASK_SHIFT) {
+                    del_mods(mod_state);
+                    tap_code16(U_CPY);
+                    tap_code(KC_LCTL);
+                    SEND_STRING(SS_DELAY(100) SS_TAP(X_TAB) "ddg");
+                    tap_code(KC_ENT);
+                    set_mods(mod_state);
+                } else {
+                    del_mods(mod_state);
+                    tap_code16(U_CPY);
+                    tap_code(KC_LCTL);
+                    SEND_STRING(SS_DELAY(100) SS_TAP(X_TAB) "fire");
+                    tap_code(KC_ENT);
+                    set_mods(mod_state);
+                }
+            }
+            return false;
+        case QT_RPLY:
+            if (record->event.pressed) {
                 del_mods(mod_state);
-                register_code(KC_LGUI);
-                tap_code(KC_C);
-                tap_code(KC_T);
-                tap_code(KC_V);
-                unregister_code(KC_LGUI);
-                tap_code(KC_ENT);
+                tap_code16(U_CPY);
+                tap_code16(KC_GT);
+                tap_code16(U_PST);
+                SEND_STRING(SS_DELAY(100));
+                tap_code16(S(KC_ENT));
+                tap_code16(LSG(KC_9));
                 set_mods(mod_state);
             }
             return false;
