@@ -164,14 +164,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     del_mods(mod_state);
                     tap_code16(U_CPY);
                     tap_code(KC_LCTL);
-                    SEND_STRING(SS_DELAY(100) SS_TAP(X_TAB) "ddg");
+                    SEND_STRING(SS_DELAY(200) SS_TAP(X_TAB) "ddg");
                     tap_code(KC_ENT);
                     set_mods(mod_state);
                 } else {
                     del_mods(mod_state);
                     tap_code16(U_CPY);
                     tap_code(KC_LCTL);
-                    SEND_STRING(SS_DELAY(100) SS_TAP(X_TAB) "fire");
+                    SEND_STRING(SS_DELAY(200));
                     tap_code(KC_ENT);
                     set_mods(mod_state);
                 }
@@ -183,7 +183,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 tap_code16(U_CPY);
                 tap_code16(KC_GT);
                 tap_code16(U_PST);
-                SEND_STRING(SS_DELAY(100));
+                SEND_STRING(SS_DELAY(200));
                 tap_code16(S(KC_ENT));
                 tap_code16(LSG(KC_9));
                 set_mods(mod_state);
