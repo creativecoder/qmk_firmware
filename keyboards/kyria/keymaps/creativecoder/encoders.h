@@ -15,6 +15,11 @@
  */
 
 #ifdef ENCODER_ENABLE
+bool is_scroll_active = false;
+uint16_t scroll_timer = 0;
+bool nudge_next_scroll_up = false;
+bool nudge_next_scroll_down = false;
+
 bool encoder_update_user(uint8_t index, bool ccw) {
     if (index == 0) {
         switch (get_highest_layer(layer_state)) {
@@ -42,12 +47,11 @@ bool encoder_update_user(uint8_t index, bool ccw) {
                     register_code(KC_LGUI);
                 }
                 if (ccw) {
-                    app_switcher_timer = timer_read();
                     tap_code16(S(KC_TAB));
                 } else {
-                    app_switcher_timer = timer_read();
                     tap_code16(KC_TAB);
                 }
+                app_switcher_timer = timer_read();
                 break;
 
         }
@@ -80,10 +84,26 @@ bool encoder_update_user(uint8_t index, bool ccw) {
                 break;
             default:
                 // Page up/Page down
+                is_scroll_active = true;
+                scroll_timer = timer_read();
                 if (ccw) {
-                    tap_code(KC_PGUP);
+                    if (nudge_next_scroll_up) {
+                        tap_code(KC_UP);
+                        nudge_next_scroll_up = false;
+                    } else {
+                        tap_code(KC_PGUP);
+                        nudge_next_scroll_up = true;
+                    }
+                    nudge_next_scroll_down = true;
                 } else {
-                    tap_code(KC_PGDN);
+                     if (nudge_next_scroll_down) {
+                        tap_code(KC_DOWN);
+                        nudge_next_scroll_down = false;
+                    } else {
+                        tap_code(KC_PGDN);
+                        nudge_next_scroll_down = true;
+                    }
+                    nudge_next_scroll_up = true;
                 }
                 break;
 
@@ -96,6 +116,14 @@ void matrix_scan_user(void) {
     if (is_app_switcher_active && timer_elapsed(app_switcher_timer) > 1000) {
         unregister_code(KC_LGUI);
         is_app_switcher_active = false;
+        app_switcher_timer = 0;
+    }
+
+    if (is_scroll_active && timer_elapsed(scroll_timer) > 2000) {
+        nudge_next_scroll_up = false;
+        nudge_next_scroll_down = false;
+        is_scroll_active = false;
+        scroll_timer = 0;
     }
 }
 #endif

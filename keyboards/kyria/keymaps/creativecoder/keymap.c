@@ -55,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       TD(Q_CTRL),        KC_W,              KC_F,              KC_P,              KC_B,                                                                                          KC_J,              KC_L,              KC_U,              KC_Y,              KC_QUOT,
       LCTL_T(KC_A),      LALT_T(KC_R),      LGUI_T(KC_S),      LSFT_T(KC_T),      KC_G,                                                                                          KC_M,              RSFT_T(KC_N),      RGUI_T(KC_E),      RALT_T(KC_I),      RCTL_T(KC_O),
       KC_Z,              ALGR_T(KC_X),      KC_C,              KC_D,              KC_V,              LT(NUM, U_NU),     U_NU,              LT(SCUTS, U_NU),   LT(NAV, U_NU),     KC_K,              KC_H,              KC_COMM,           ALGR_T(KC_DOT),    KC_SLSH,
-                                            RELEASE_LGUI,      LT(MEDIA, KC_ESC), LT(NAV, KC_SPC),   LT(SCUTS, KC_TAB), LT(MOUSE, U_NU),   U_NU,              LT(SYM, KC_ENT),   LT(NUM, KC_BSPC),  LT(FUN, KC_DEL),   U_NU
+                                            RELEASE_LGUI,      LT(MEDIA, KC_ESC), LT(NAV, KC_SPC),   LT(SCUTS, KC_TAB), LT(MOUSE, U_NU),   U_NU,              LT(SYM, KC_ENT),   LT(NUM, KC_BSPC),  LT(FUN, KC_DEL),   KC_HOME
     ),
     [NAV] = LAYOUT_kyria_3x5(
       RESET,   U_NA,    U_NA,    U_NA,    U_NA,                                        U_RDO,   U_PST,   U_CPY,   U_CUT,   U_UND,
@@ -193,9 +193,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 del_mods(mod_state);
                 tap_code(KC_ESC);
-                tap_code16(KC_COLN);
-                tap_code(KC_W);
-                tap_code(KC_Q);
+                SEND_STRING(":wq");
                 tap_code(KC_ENT);
                 set_mods(mod_state);
             }
