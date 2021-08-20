@@ -23,6 +23,9 @@ enum layers { BASE, MBO, MEDIA, NAV, MOUSE, SCUTS, SYM, NUM, FUN };
 bool is_app_switcher_active = false;
 uint16_t app_switcher_timer = 0;
 
+// Initialize variable holding the binary representation of active modifiers.
+uint8_t mod_state;
+
 #include "combos.h"
 #include "encoders.h"
 #include "layout.h"
@@ -118,9 +121,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                         U_NU,    KC_APP,  KC_SPC,  KC_TAB,  U_NU,    U_NA,    U_NA,    U_NA,    U_NA,    U_NU
     ),
 };
-
-// Initialize variable holding the binary representation of active modifiers.
-uint8_t mod_state;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // Store the current modifier state in the variable for later reference
